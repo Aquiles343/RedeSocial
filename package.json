@@ -1,0 +1,32 @@
+{
+  "name": "redesocialwy",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Aquiles343/RedeSocial.git",
+  "bugs": {
+    "url": "https://github.com/Aquiles343/RedeSocial.git"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aquiles343/RedeSocial.git"
+  },
+  "license": "ISC",
+  "author": "Gabrielly Cristiny",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
