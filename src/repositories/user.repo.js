@@ -14,8 +14,24 @@ async function createUser(name, email, bio, password_hash) {
 }
 
 async function findById(id) {
-  const [rows] = await db.query("SELECT id, name, email FROM users WHERE id = ?", [id]);
+  const [rows] = await db.query(
+    "SELECT idusers as id, name, email, bio FROM users WHERE idusers = ?", 
+    [id]
+  );
   return rows[0];
 }
 
-module.exports = { findByEmail, createUser, findById };
+async function updateUser(id, data) {
+  const { name, email, bio } = data;
+  
+  const [res] = await db.query(
+    "UPDATE users SET name = ?, email = ?, bio = ? WHERE idusers = ?",
+    [name, email, bio, id]
+  );
+  
+  return res.affectedRows;
+}
+
+
+
+module.exports = { findByEmail, createUser, findById, updateUser};

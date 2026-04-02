@@ -1,16 +1,23 @@
 const jwt = require("jsonwebtoken");
 
 function authRequired(req, res, next) {
-  const auth = req.headers.authorization;
-  if (!auth) return res.status(401).json({ message: "Token ausente" });
+  const authHeader = req.headers.authorization;
 
-  const [, token] = auth.split(" ");
+  if (!authHeader) {
+    return res.status(401).json({ message: "Token ausente" });
+  }
+
+  const [, token] = authHeader.split(" ");
+
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
+    console.log(`decoded token: ${JSON.stringify(decoded, null, 2)}`)
+    // AQUI ESTÁ O SEGREDO: 
+    // O que vier do token (id, email) vai para o req.user
+    req.user = decoded; 
     next();
-  } catch {
-    return res.status(401).json({ message: "Token inválido" });
+  } catch (err) {
+    return res.status(401).json({ message: "Token inválido", error: err});
   }
 }
 

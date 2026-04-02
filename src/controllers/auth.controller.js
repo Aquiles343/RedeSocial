@@ -23,8 +23,9 @@ async function login(req, res, next) {
     const ok = await comparePassword(password, user.password_hash);
     if (!ok) return res.status(401).json({ message: "Credenciais inválidas" });
 
+    // --- O AJUSTE ESTÁ AQUI EMBAIXO ---
     const token = jwt.sign(
-      { id: user.id, email: user.email },
+      { id: user.idusers, email: user.email }, 
       process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRES_IN }
     );
