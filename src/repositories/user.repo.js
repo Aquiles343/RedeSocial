@@ -32,6 +32,9 @@ async function updateUser(id, data) {
   return res.affectedRows;
 }
 
+async function deleteUser(id) {
+  const [res] = await db.query("DELETE FROM users WHERE idusers = ?", [id]);
+  return res.affectedRows;
+}
 
-
-module.exports = { findByEmail, createUser, findById, updateUser};
+module.exports = { findByEmail, createUser, findById, updateUser, deleteUser };

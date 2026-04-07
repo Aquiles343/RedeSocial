@@ -16,7 +16,6 @@ async function updateUsuario(req, res, next) {
       return res.status(401).json({ message: "ID não encontrado no token. Faça login novamente!" });
     }
 
-    // 2. Dados do Apidog
     const { name, email, bio } = req.body;
     
     await repo.updateUser(userId, { name, email, bio });
@@ -27,6 +26,21 @@ async function updateUsuario(req, res, next) {
   }
 }
 
+async function deletarUsuario(req, res, next) {
+  try {
+    const userId = req.user?.id;
+    
+    if (!userId) {
+      return res.status(401).json({ message: "ID não encontrado no token. Faça login novamente!" });
+    }
+    
+    await repo.deleteUser(userId);
+    res.json({ message: "Usuário deletado com sucesso!" });
+  } catch (e) {
+    next(e);
+  }
+}
 
-module.exports = { me, updateUsuario};
+module.exports = { me, updateUsuario, deletarUsuario };
+
 
