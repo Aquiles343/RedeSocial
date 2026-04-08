@@ -19,11 +19,11 @@ async function create(userId, data) {
   return res.insertId;
 }
 
-// --- (O UPDATE) ---
+// --- UPDATE ---
 async function update(postId, userId, data) {
   const { content, visibility } = data;
   
-  // Removemos o "AND user_id = ?" apenas para você conseguir testar
+ 
   const [res] = await db.query(
     "UPDATE posts SET content = ?, visibility = ? WHERE idposts = ?",
     [content, visibility, postId]
@@ -32,5 +32,13 @@ async function update(postId, userId, data) {
   return res.affectedRows; 
 }
 
-// NÃO ESQUEÇA DE ADICIONAR O 'update' AQUI EMBAIXO!
-module.exports = { list, create, update };
+async function remove(postId) {
+    const [res] = await db.query(
+        "DELETE FROM posts WHERE idposts = ?",
+        [postId]
+    );
+    return res.affectedRows;
+}
+
+
+module.exports = { list, create, update, remove };
